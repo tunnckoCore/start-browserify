@@ -39,17 +39,12 @@ const startBrowserify = (entry, config) => (input) => {
             data: str.trim()
           })
         }
-        console.log('str ===================================')
-        console.log('str ========== DAMN !! ====================')
-        console.log('str ========================', str, '===========')
-        console.log('str ===================================')
 
         const index = str.search(csm.commentRegex)
         const comment = str.slice(index)
         const code = str.slice(0, index)
-        // console.log('actual', str)
         const map = csm.fromComment(comment).toJSON()
-        // console.log(map)
+
         return resolve({
           path: config.dest,
           data: code.trim(),

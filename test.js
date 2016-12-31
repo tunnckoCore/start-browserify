@@ -9,10 +9,9 @@
 
 'use strict'
 
-// const fs = require('fs')
 const test = require('mukla')
+const extend = require('extend-shallow')
 const browserify = require('./index')
-// const csm = require('convert-source-map')
 const buble = require('rollup-plugin-buble')
 const commonjs = require('rollup-plugin-commonjs')
 const nodeResolve = require('rollup-plugin-node-resolve')
@@ -36,12 +35,15 @@ const config = {
 }
 
 test('start-browserify: no sourcemaps', function (done) {
-  browserify(config)()(() => {}).then((file) => {
+  let options = extend({}, config)
+  options.debug = false
+  browserify(options)()(() => {}).then((file) => {
     test.strictEqual(file.path, './fixture.bundle.js')
     test.strictEqual(file.data.indexOf('tryCatch.call') > 0, true)
     test.strictEqual(file.data.indexOf('eachSerial') > 0, true)
     test.strictEqual(file.data.indexOf('globby') > 0, true)
     test.strictEqual(file.data.indexOf('minimatch') > 0, true)
+    test.strictEqual(file.map, undefined)
 
     // should not found `eachParallel` function, it is not used...
     // test.strictEqual(file.data.indexOf('eachParallel') === -1, true)
@@ -49,16 +51,16 @@ test('start-browserify: no sourcemaps', function (done) {
   }).catch(done)
 })
 
-// test('with sourcemap', function (done) {
-//   config.debug = true
-//   browserify(config)()(() => {}).then((file) => {
-//     test.strictEqual(file.path, './fixture.bundle.js')
-//     test.strictEqual(file.data.indexOf('tryCatch.call') > 0, true)
-//     console.log('done')
-//     // test.strictEqual(file.map && typeof file.map === 'object', true)
-//     // console.log(file.map)
-//     // should not found `eachParallel` function, it is not used...
-//     // test.strictEqual(file.data.indexOf('eachParallel') === -1, true)
-//     done()
-//   }).catch(done)
-// })
+test('with sourcemap', function (done) {
+  let options = extend({}, config)
+  options.debug = true
+  browserify(options)()(() => {}).then((file) => {
+    test.strictEqual(file.path, './fixture.bundle.js')
+    test.strictEqual(file.data.indexOf('tryCatch.call') > 0, true)
+    test.strictEqual(file.map && typeof file.map === 'object', true)
+
+    // should not found `eachParallel` function, it is not used...
+    // test.strictEqual(file.data.indexOf('eachParallel') === -1, true)
+    done()
+  }).catch(done)
+})
