@@ -45,7 +45,17 @@
   "files": [
     "index.js"
   ],
-  "keywords": [],
+  "keywords": [
+    "browser",
+    "browserify",
+    "easy",
+    "flat",
+    "runner",
+    "start",
+    "start-task",
+    "task",
+    "transform"
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
