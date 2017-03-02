@@ -37,7 +37,7 @@
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollupify": "^0.3.7",
-    "standard": "^8.6.0",
+    "standard": "^10.0.0-beta.0",
     "standard-version": "^4.0.0",
     "start-files": "^2.0.0",
     "try-catch-callback": "^2.0.1"
