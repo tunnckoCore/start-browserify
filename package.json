@@ -21,7 +21,7 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "browserify": "^13.1.1"
+    "browserify": "^14.2.0"
   },
   "devDependencies": {
     "commitizen": "^2.9.2",
